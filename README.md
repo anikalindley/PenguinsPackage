@@ -17,5 +17,19 @@ You can install the package through GitHub using:
 devtools::install_github("anikalindley/project3package")
 ```
 
+You can view the vignette here: 
 
+```{r}
+
+devtools::install_github("anikalindley/project3package", build_vignette = TRUE, build_opts = c())
+
+library(project3package)
+
+# Use this to view the vignette in the Demo HTML help
+help(package = "Demo", help_type = "html")
+
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "Demo")
+
+```
 
