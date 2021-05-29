@@ -1,3 +1,16 @@
+#' t-test function
+#'
+#' This function performs t-tests.
+#'
+#' @param x Numeric vector of data.
+#' @param alternative String that specifies the alternative hypothesis and accepts
+#'  "two.sided", "less", or "greater".
+#' @param mu Numeric value that specifices the null hypothesis value of the mean.
+#'
+#' @return List that includes a numeric test statistic, the degrees of freedom,
+#'   the alternative hypothesis parameter, and the numeric p-value
+#'
+#' @export
 my_t.test <- function(x, alternative, mu) {
 
   # sample size
@@ -10,7 +23,7 @@ my_t.test <- function(x, alternative, mu) {
   my_mean <- mean(x)
 
   # standard deviation in one sample t-test
-  my_sd <- (sd(x) / sqrt(my_sample))
+  my_sd <- (stats::sd(x) / sqrt(my_sample))
 
   # calculate test statistic
   test_stat <- ((my_mean - mu) / my_sd)
@@ -26,7 +39,7 @@ my_t.test <- function(x, alternative, mu) {
   if (alternative == "two.sided") {
 
     # calculate p value
-    p_val <- (2 * pt(abs(test_stat), df = my_df, lower.tail = FALSE))
+    p_val <- (2 * stats::pt(abs(test_stat), df = my_df, lower.tail = FALSE))
 
     # add p value to the output list
     my_list[4] <- p_val
@@ -35,7 +48,7 @@ my_t.test <- function(x, alternative, mu) {
   } else if (alternative == "less") {
 
     # calculate the p-value
-    p_val <- pt(test_stat, df = my_df, lower.tail = TRUE)
+    p_val <- stats::pt(test_stat, df = my_df, lower.tail = TRUE)
 
     # add p value to the output list
     my_list[4] <- p_val
@@ -44,7 +57,7 @@ my_t.test <- function(x, alternative, mu) {
   } else if (alternative == "greater") {
 
     # calculate the p-value
-    p_val <- pt(test_stat, df = my_df, lower.tail = FALSE)
+    p_val <- stats::pt(test_stat, df = my_df, lower.tail = FALSE)
 
     # add p value to the output list
     my_list[4] <- p_val

@@ -10,6 +10,7 @@
 #' @return a list with elements class, a vector of the predicted class for each observation,
 #'   and cv_err, a numeric with the cross-validation misclassification error.
 #'
+#'
 #' @export
 my_knn_cv <- function(train, cl, k_nn, k_cv) {
 
@@ -36,14 +37,14 @@ my_knn_cv <- function(train, cl, k_nn, k_cv) {
     cl_test <- cl[which(fold == i)]
 
     # use knn() to predict class and store predictions for each iteration in the list
-    prediction[[i]] <- knn(my_train, my_test, cl_train, k_nn)
+    prediction[[i]] <- class::knn(my_train, my_test, cl_train, k_nn)
 
     # calculate the misclassification rate for each iteration
     cv_err[i, 1] <- mean(cl_test != prediction[[i]])
   }
 
   # store output of knn() in vector
-  class <- as.vector(knn(train, train, cl, k_nn))
+  class <- as.vector(class::knn(train, train, cl, k_nn))
   # average misclassification error
   cv_error <- mean(cv_err)
   # add class vector to output

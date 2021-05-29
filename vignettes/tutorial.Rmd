@@ -1,8 +1,9 @@
 ---
 title: "Project 3: project3package Tutorial"
+author: "Anika Lindley"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Project 3: project3package Tutorial}
+  %\VignetteIndexEntry{project3package Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

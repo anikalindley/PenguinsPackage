@@ -4,8 +4,17 @@
 #'
 #' @param k Numeric indicating the number of folds used for cross-validation
 #'
+#'
 #' @return Numeric with the cross-validation error
+#' @import magrittr
+#'
+#' @export
 my_rf_cv <- function(k) {
+
+  penguins2 <- project3package::my_penguins
+  penguins2<- stats::na.omit(penguins2)
+  penguins2 <- penguins2[, c(3,6)]
+
   # variable used to randomly assign observations to folds 1 through k
   fold <- sample(rep(1:k, length = nrow(penguins2)))
 
@@ -19,12 +28,12 @@ my_rf_cv <- function(k) {
     penguin_test <- penguins2[which(fold == i), ]
 
     # use random forest to train model using 100 trees
-    model <- randomForest(body_mass_g ~ bill_length_mm + bill_depth_mm + flipper_length_mm,
+    model <- randomForest::randomForest(body_mass_g ~ bill_length_mm + bill_depth_mm + flipper_length_mm,
                           data = penguin_train,
                           ntree = 100)
 
     # prediction made using testing data
-    weight_prediction <- predict(model, penguin_test[, -1])
+    weight_prediction <- stats::predict(model, penguin_test[, -4])
 
     # calculate and store the average mean squared error for each fold
     MSE[i, 1] <- mean(weight_prediction - penguin_test$body_mass_g)^2
@@ -36,10 +45,3 @@ my_rf_cv <- function(k) {
   return(CV_MSE)
 }
 
-# select covariates and column containing true body mass observations
-penguins2 <- palmerpenguins::penguins %>% select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
-# remove NA values
-penguins2 <- penguins2 %>% na.omit()
-
-# run function with 5-fold cross validation
-my_rf_cv(5)
