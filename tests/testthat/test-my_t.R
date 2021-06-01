@@ -9,3 +9,9 @@ test_that("my t.test throws error", {
   test_data <- rnorm(50, 0, 1)
   expect_error(my_t.test(x = test_data, alternative = "error", mu = 0.3))
 })
+
+test_that("my t.test throws error", {
+  set.seed(123)
+  test_data <- rnorm(50, 0, 1)
+  expect_type(my_t.test(x = test_data, alternative = "less", mu = 0.3), "list")
+})
