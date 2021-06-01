@@ -11,7 +11,7 @@
 my_rf_cv <- function(k) {
 
   penguins2 <- project3package::my_penguins
-  penguins2 <- stats::na.omit(penguins2)[, c(3,6)]
+  penguins2 <- stats::na.omit(penguins2)[, c(3:6)]
 
   # variable used to randomly assign observations to folds 1 through k
   fold <- sample(rep(1:k, length = nrow(penguins2)))
