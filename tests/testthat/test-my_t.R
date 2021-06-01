@@ -10,6 +10,13 @@ test_that("my t.test output is correct", {
   expect_equal(my_t.test(x = test_data, alternative = "greater", mu = 0.4)$test_stat, -2.792139, tolerance = 0.01)
 })
 
+test_that("my t.test output is correct", {
+  set.seed(123)
+  test_data <- rnorm(50, 0, 1)
+  expect_equal(my_t.test(x = test_data, alternative = "less", mu = 0.4)$test_stat, -2.792139, tolerance = 0.01)
+})
+
+
 test_that("my t.test throws error", {
   set.seed(123)
   test_data <- rnorm(50, 0, 1)
