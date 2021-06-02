@@ -10,7 +10,8 @@
 #'  the probability of observing a t-value at least as extreme as the one observed,
 #'  if the null hypothesis is correct
 #'
-#'
+#' @examples
+#' my_lm(formula = mtcars$wt ~ mtcars$cyl + mtcars$mpg, data = mtcars)
 #'
 #' @export
 my_lm <- function(formula, data) {

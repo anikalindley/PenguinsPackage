@@ -10,6 +10,10 @@
 #' @return List that includes a numeric test statistic, the degrees of freedom,
 #'   the alternative hypothesis parameter, and the numeric p-value
 #'
+#' @examples
+#' my_t.test(x = rnorm(50, 0, 1), alternative = "less", mu = 0.3)
+#' my_t.test(x = mtcars$wt, alternative = "greater", mu = 3)
+#'
 #' @export
 my_t.test <- function(x, alternative, mu) {
 

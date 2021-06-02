@@ -10,6 +10,8 @@
 #' @return a list with elements class, a vector of the predicted class for each observation,
 #'   and cv_err, a numeric with the cross-validation misclassification error.
 #'
+#' @examples
+#' my_knn_cv(penguins_train, penguins_cl, 1, 5)
 #'
 #' @export
 my_knn_cv <- function(train, cl, k_nn, k_cv) {

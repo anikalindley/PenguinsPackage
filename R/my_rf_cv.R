@@ -7,6 +7,9 @@
 #'
 #' @return Numeric with the cross-validation error
 #'
+#' @examples
+#' my_rf_cv(5)
+#'
 #' @export
 my_rf_cv <- function(k) {
 
