@@ -20,3 +20,7 @@ if the null hypothesis is correct
 \description{
 This function fits a linear model to given data.
 }
+\examples{
+my_lm(formula = mtcars$wt ~ mtcars$cyl + mtcars$mpg, data = mtcars)
+
+}

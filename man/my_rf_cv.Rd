@@ -17,3 +17,7 @@ Numeric with the cross-validation error
 random forest cross-validation
 This function performs cross validation on predictions made using random forest
 }
+\examples{
+my_rf_cv(5)
+
+}

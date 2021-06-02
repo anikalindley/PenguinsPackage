@@ -21,3 +21,8 @@ the alternative hypothesis parameter, and the numeric p-value
 \description{
 This function performs t-tests.
 }
+\examples{
+my_t.test(x = rnorm(50, 0, 1), alternative = "less", mu = 0.3)
+my_t.test(x = mtcars$wt, alternative = "greater", mu = 3)
+
+}
