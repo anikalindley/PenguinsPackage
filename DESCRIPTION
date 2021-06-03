@@ -25,4 +25,5 @@ Imports:
     class,
     dplyr,
     stats,
-    randomForest
+    randomForest,
+    ggplot2

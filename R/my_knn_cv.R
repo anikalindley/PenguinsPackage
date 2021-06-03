@@ -11,7 +11,6 @@
 #'   and cv_err, a numeric with the cross-validation misclassification error.
 #'
 #' @examples
-#'
 #' train <- na.omit(my_penguins)[, c(3:6)]
 #' cl <- na.omit(my_penguins)[, 1]
 #' my_knn_cv(train, cl, 1, 5)

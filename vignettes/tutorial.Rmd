@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
+
 The package `project3package` contains four functions: `my_t.test`, `my_lm`, `my_rf_cv`, and `my_knn_cv`. These functions can be used to make statistical inferences, predictions, and to assess the performance of statistical models.
 
 ## Instalation
@@ -25,40 +26,44 @@ To install `project3package` from GitGub, run the following code in your console
 ```{r, eval = FALSE}
 install.packages("devtools")
 devtools::install_github("anikalindley/project3package", build_vignette = TRUE, build_opts = c())
-# use this call to access the functions in project3package
+```
+
+```{r}
 library(project3package)
 ```
 
 # my_t.test
 
-To demonstate the use of `my_t.test`, I will examine the mean age of life expectancy from the `my_gapminder` dataset. For all three trials, $H_{0} = 60$, and I will use `my_t.test` to determine the liklihood that the life expectancy is not 60 years, is less than 60 years, or is greater than 60 years using $\alpha = 0.05$.
+To demonstate the use of `my_t.test`, I will examine the mean age of life expectancy from the `my_gapminder` dataset. For all three trials, $H_{0} = 60$, and I will use `my_t.test` to determine the liklihood that the life expectancy is not 60 years, is less than 60 years, or is 
 
-```{r}
-# load life expectancy data
-data(my_gapminder)
+```{r, include=TRUE}
+data("my_gapminder")
+life_expectancy <- my_gapminder$lifeExp
 ```
 
 ## two sided hypothesis test
 
 ```{r}
-my_t.test(x = life_expectancy, alternative = "two.sided", mu = 60)
+test_two.sided <- my_t.test(x = life_expectancy, alternative = "two.sided", mu = 60)
+test_two.sided
 ```
 
-The p-value for the trial with $H_{a} \neq 60$ is `r my_t.test$p_val`, which is greater than $\alpha = 0.05$. This means that there is a `r my_t.test$p_val` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we fail to reject the null hypothesis that the mean age is 60 years. 
+The p-value for the trial with $H_{a} \neq 60$ is `r test_two.sided[[4]]`, which is greater than $\alpha = 0.05$. This means that there is a `r test_two.sided[[4]]` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we fail to reject the null hypothesis that the mean age is 60 years. 
 
 ## one sided hypothesis test where the alternative hypothesis is mu < 60
 ```{r}
-my_t.test(x = lifeExp, alternative = "less", mu = 60)
+test_less <- my_t.test(x = life_expectancy, alternative = "less", mu = 60)
+test_less
 ```
 
-The p-value for the trial with $H_{a} < 60$ is `r my_t.test$p_val`, which is less than $\alpha = 0.05$. This means that there is a `r my_t.test$p_val` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we can reject the the null hypothesis in favor of the alternative hypothesis, that the true mean life expectancy is less than 60. 
+The p-value for the trial with $H_{a} < 60$ is `r test_less[[4]]`, which is less than $\alpha = 0.05$. This means that there is a `r test_less[[4]]` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we can reject the the null hypothesis in favor of the alternative hypothesis, that the true mean life expectancy is less than 60. 
 
-
-## one sided hypothesis test where the alternative hypothesis is mu > 60
 ```{r}
-my_t.test(x = lifeExp, alternative = "greater", mu = 60)
+test_greater <- my_t.test(x = life_expectancy, alternative = "greater", mu = 60)
+test_greater
 ```
-The p-value for the trial with $H_{a} > 60$ is `r my_t.test$p_val`, which is greater than $\alpha = 0.05$. This means that there is a `r my_t.test$p_val` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we fail to reject the null hypothesis that the mean age is 60 years. 
+
+The p-value for the trial with $H_{a} > 60$ is `r test_greater[[4]]`, which is greater than $\alpha = 0.05$. This means that there is a `r test_greater[[4]]` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we fail to reject the null hypothesis that the mean age is 60 years. 
 
 # my_lm
 
@@ -76,7 +81,7 @@ The following plot compared the actual vs. fitted values:
 
 ```{r, warning = FALSE}
 library(ggplot2)
-my_x <- model.matrix(life_expectancy ~ gdpPercap + continent, data = my_gapminder)
+my_x <- model.matrix(my_gapminder$lifeExp ~ gdpPercap + continent, data = my_gapminder)
 fitted <- my_x %*% as.matrix(my_model[, 1])
 my_df <- data.frame(actual = my_gapminder$lifeExp, fitted = fitted, continent = my_gapminder$continent)
 

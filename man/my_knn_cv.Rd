@@ -23,7 +23,6 @@ and cv_err, a numeric with the cross-validation misclassification error.
 This function performs cross-validation on predictions made with k-nearest neighbors.
 }
 \examples{
-
 train <- na.omit(my_penguins)[, c(3:6)]
 cl <- na.omit(my_penguins)[, 1]
 my_knn_cv(train, cl, 1, 5)

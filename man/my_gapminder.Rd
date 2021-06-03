@@ -17,8 +17,9 @@ The main data frame \code{gapminder} has 1704 rows and 6 variables:
 
 The supplemental data frame \code{\link[gapminder]{gapminder_unfiltered}} was not
 filtered on \code{year} or for complete data and has 3313 rows.
-
-#' @source \url{http://www.gapminder.org/data/}
+}
+\source{
+\url{http://www.gapminder.org/data/}
 }
 \usage{
 my_gapminder
