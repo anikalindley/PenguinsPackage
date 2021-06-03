@@ -5,7 +5,7 @@
 \alias{my_gapminder}
 \title{Gapminder data.}
 \format{
-A tibble with 1,704 rows and 6 variables:
+The main data frame \code{gapminder} has 1704 rows and 6 variables:
 \describe{
 \item{country}{factor with 142 levels}
 \item{continent}{factor with 5 levels}
@@ -14,18 +14,22 @@ A tibble with 1,704 rows and 6 variables:
 \item{pop}{population}
 \item{gdpPercap}{GDP per capita (US$, inflation-adjusted)}
 }
-}
-\source{
-http://www.gapminder.org/data/
+
+The supplemental data frame \code{\link[gapminder]{gapminder_unfiltered}} was not
+filtered on \code{year} or for complete data and has 3313 rows.
+
+#' @source \url{http://www.gapminder.org/data/}
 }
 \usage{
 my_gapminder
 }
 \description{
-Excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country.
-}
-\details{
+Excerpt of the Gapminder data on life expectancy, GDP per capita, and
+population by country.
 This data and documentation come from the \code{gapminder} package,
 available as \code{\link[gapminder]{gapminder}}.
+}
+\seealso{
+\code{\link[gapminder]{country_colors}} for a nice color scheme for the countries
 }
 \keyword{datasets}

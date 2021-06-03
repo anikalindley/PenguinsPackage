@@ -37,7 +37,7 @@ my_rf_cv <- function(k) {
     weight_prediction <- stats::predict(model, penguin_test[, -4])
 
     # calculate and store the average mean squared error for each fold
-    MSE[i, 1] <- mean(weight_prediction - penguin_test$body_mass_g)^2
+    MSE[i, 1] <- mean((weight_prediction - penguin_test$body_mass_g)^2)
   }
 
   # average mean squared error across iterations

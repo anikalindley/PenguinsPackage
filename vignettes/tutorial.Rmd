@@ -15,6 +15,88 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+# Introduction
+The package `project3package` contains four functions: `my_t.test`, `my_lm`, `my_rf_cv`, and `my_knn_cv`. These functions can be used to make statistical inferences, predictions, and to assess the performance of statistical models.
+
+## Instalation
+
+To install `project3package` from GitGub, run the following code in your console:
+
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("anikalindley/project3package", build_vignette = TRUE, build_opts = c())
+# use this call to access the functions in project3package
 library(project3package)
 ```
+
+# my_t.test
+
+To demonstate the use of `my_t.test`, I will examine the mean age of life expectancy from the `my_gapminder` dataset. For all three trials, $H_{0} = 60$, and I will use `my_t.test` to determine the liklihood that the life expectancy is not 60 years, is less than 60 years, or is greater than 60 years using $\alpha = 0.05$.
+
+```{r}
+# load life expectancy data
+data(my_gapminder)
+```
+
+## two sided hypothesis test
+
+```{r}
+my_t.test(x = life_expectancy, alternative = "two.sided", mu = 60)
+```
+
+The p-value for the trial with $H_{a} \neq 60$ is `r my_t.test$p_val`, which is greater than $\alpha = 0.05$. This means that there is a `r my_t.test$p_val` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we fail to reject the null hypothesis that the mean age is 60 years. 
+
+## one sided hypothesis test where the alternative hypothesis is mu < 60
+```{r}
+my_t.test(x = lifeExp, alternative = "less", mu = 60)
+```
+
+The p-value for the trial with $H_{a} < 60$ is `r my_t.test$p_val`, which is less than $\alpha = 0.05$. This means that there is a `r my_t.test$p_val` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we can reject the the null hypothesis in favor of the alternative hypothesis, that the true mean life expectancy is less than 60. 
+
+
+## one sided hypothesis test where the alternative hypothesis is mu > 60
+```{r}
+my_t.test(x = lifeExp, alternative = "greater", mu = 60)
+```
+The p-value for the trial with $H_{a} > 60$ is `r my_t.test$p_val`, which is greater than $\alpha = 0.05$. This means that there is a `r my_t.test$p_val` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we fail to reject the null hypothesis that the mean age is 60 years. 
+
+# my_lm
+
+To demonstate the use of `my_lm` I will create a regression using life expectancy as my response variable and GDP per capita and continent as my explanatory variables, with data from `my_gapminder`.
+
+```{r}
+my_model <- my_lm(formula = lifeExp ~ gdpPercap + continent, data = my_gapminder)
+my_model
+```
+The coefficient for gdpPercap is `r my_model[2,1]`, which means that for each one unit increase of gdpPercap, lifeExp increases by `r my_model[2,1]` years.
+
+The hypothesis test for the gdpPercap coefficient is $H_{0} = 0$ and $H_{a} \neq 0$. We can use the value from the column Pr(>|t|) for the hypothesis test. The p-value, `r my_model[2, 4]` is less than $\alpha = 0.05$; therefore, we can reject the null hypotheses in favor of the alternative hypothesis, suggesting that the true change in life expectancy for each one unit increase of GDP per capita is not zero.
+
+The following plot compared the actual vs. fitted values: 
+
+```{r, warning = FALSE}
+library(ggplot2)
+my_x <- model.matrix(life_expectancy ~ gdpPercap + continent, data = my_gapminder)
+fitted <- my_x %*% as.matrix(my_model[, 1])
+my_df <- data.frame(actual = my_gapminder$lifeExp, fitted = fitted, continent = my_gapminder$continent)
+
+ggplot(my_df, aes(x = actual, y = fitted, color = continent)) + 
+  geom_point(size = 0.7) + 
+  theme_bw(base_size = 12) + 
+  labs(x = "Actual (years)", y = "Fitted (years)", title = "Actual vs. Fitted") + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  xlim(20, 90) + 
+  ylim(20, 90)
+
+```
+
+# my_knn_cv
+
+To demonstrate the use of `my_knn_cv` I will predict the class species of penguins using covariates bill length, bill depth, flipper length,and body mass and will use 5-fold cross validation to assess the predictions. 
+
+```{r}
+
+
+
+```
+
