@@ -100,8 +100,48 @@ ggplot(my_df, aes(x = actual, y = fitted, color = continent)) +
 To demonstrate the use of `my_knn_cv` I will predict the class species of penguins using covariates bill length, bill depth, flipper length,and body mass and will use 5-fold cross validation to assess the predictions. 
 
 ```{r}
+library(magrittr)
+library(dplyr)
+# remove NA values
+penguin <- na.omit(my_penguins)
+# select covariates
+my_train <- penguin %>% dplyr::select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+# true species (class) of penguins
+my_cl <- penguin %>% dplyr::pull(species)
+
+training_err <- matrix(NA, 10, 1)
+CV_missclassification <- matrix(NA, 10, 1)
+
+for(i in 1:10) {
+# predict species using 1 through 10 nearest neighbors and 5-fold cross-validation
+my_knn <- my_knn_cv(my_train, my_cl, i, 5)
+training_err[i] <- length(which(penguin$species != my_knn[[1]])) / nrow(penguin)
+CV_missclassification[i] <- my_knn[[2]]
+}
+
+training_err
+CV_missclassification
+```
+
+# my_rf_cv
+
+To demonstate the use of my_rf_cv
+
+```{r}
+
+
+
 
 
 
 ```
 
+
+
+
+
+
+
+
+
+}
