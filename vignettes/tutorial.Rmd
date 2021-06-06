@@ -125,23 +125,21 @@ CV_missclassification
 
 # my_rf_cv
 
-To demonstate the use of my_rf_cv
+To demonstate the use of my_rf_cv I will predict the body mass of penguins using bill length, bill dpeth, and flipper length as covariates. 
 
 ```{r}
+my_rf <- matrix(NA, 3, 30)
+
+for (i in c(2, 5, 10)) {
+  for(j in 1:30) {
+       my_rf[1, j] <- my_rf_cv(i)
+       my_rf[2, j] <- my_rf_cv(i)
+       my_rf[3, j] <- my_rf_cv(i)
+  }
+}
 
 
-
-
-
+my_rf
 
 ```
 
-
-
-
-
-
-
-
-
-}
