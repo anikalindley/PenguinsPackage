@@ -1,6 +1,7 @@
 #' k-nearest neighbors cross-validation function
 #'
-#' This function performs cross-validation on predictions made with k-nearest neighbors.
+#' This function uses cross validation to assess how predictions made using
+#' k-nearest neighbors models can generalize to independent data sets.
 #'
 #' @param train Input data frame.
 #' @param cl True class of the training data.

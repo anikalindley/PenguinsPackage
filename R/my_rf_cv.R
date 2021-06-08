@@ -1,6 +1,7 @@
 #' Random forest cross-validation
 #"
-#' This function performs cross validation on predictions made using random forest.
+#' This function uses cross validation to assess how predictions made using
+#' random forest models can generalize to independent data sets.
 #'
 #' @param k Numeric indicating that the function will use \code{k}-fold cross-validation.
 #'
