@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-The package `project3package` contains four functions: `my_t.test`, `my_lm`, `my_rf_cv`, and `my_knn_cv`. These functions can be used to make statistical inferences, predictions, and to assess the performance of statistical models.
+The package `project3package` contains four functions. `my_t.test` is used to make statistical inferences,  `my_lm` is used to make predictions, and `my_knn_cv` and `my_rf_cv` use cross validation to assess the predictive performance of models made using k-nearest neighbors and random forest, respectively.
 
 ## Instalation
 
