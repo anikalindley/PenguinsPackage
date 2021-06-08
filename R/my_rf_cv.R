@@ -1,18 +1,17 @@
-#' random forest cross-validation
+#' Random forest cross-validation
 #"
-#' This function performs cross validation on predictions made using random forest
+#' This function performs cross validation on predictions made using random forest.
 #'
-#' @param k Numeric indicating the number of folds used for cross-validation
+#' @param k Numeric indicating that the function will use \code{k}-fold cross-validation.
 #'
-#'
-#' @return Numeric with the cross-validation error
+#' @return Numeric with the cross-validation error.
 #'
 #' @examples
 #' my_rf_cv(5)
 #'
 #' @export
 my_rf_cv <- function(k) {
-
+  # load penguin data
   penguins2 <- project3package::my_penguins
   penguins2 <- stats::na.omit(penguins2)[, c(3:6)]
 

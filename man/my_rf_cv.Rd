@@ -2,20 +2,20 @@
 % Please edit documentation in R/my_rf_cv.R
 \name{my_rf_cv}
 \alias{my_rf_cv}
-\title{random forest cross-validation
-This function performs cross validation on predictions made using random forest}
+\title{Random forest cross-validation
+This function performs cross validation on predictions made using random forest.}
 \usage{
 my_rf_cv(k)
 }
 \arguments{
-\item{k}{Numeric indicating the number of folds used for cross-validation}
+\item{k}{Numeric indicating that the function will use \code{k}-fold cross-validation.}
 }
 \value{
-Numeric with the cross-validation error
+Numeric with the cross-validation error.
 }
 \description{
-random forest cross-validation
-This function performs cross validation on predictions made using random forest
+Random forest cross-validation
+This function performs cross validation on predictions made using random forest.
 }
 \examples{
 my_rf_cv(5)

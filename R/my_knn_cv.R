@@ -55,8 +55,6 @@ my_knn_cv <- function(train, cl, k_nn, k_cv) {
   output[[1]] <- class
   # add average misclassification error to output
   output[[2]] <- cv_error
-  # print cross-validation error of each fold in a table
-  print(as.table(cv_err))
   # return output
   return(output)
 }

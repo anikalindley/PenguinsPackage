@@ -26,4 +26,6 @@ Imports:
     dplyr,
     stats,
     randomForest,
-    ggplot2
+    ggplot2,
+    tidyr,
+    reshape2

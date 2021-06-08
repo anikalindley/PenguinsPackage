@@ -5,10 +5,10 @@
 #' @param formula Class object.
 #' @param data Input data frame.
 #'
-#' @return table that includes the estimates for the regression coefficients,
+#' @return Table that includes the estimates for the regression coefficients,
 #'  the standard errors of the estimations, the t-value of the estimations, and
 #'  the probability of observing a t-value at least as extreme as the one observed,
-#'  if the null hypothesis is correct
+#'  if the null hypothesis is correct.
 #'
 #' @examples
 #' my_lm(formula = mtcars$wt ~ mtcars$cyl + mtcars$mpg, data = mtcars)

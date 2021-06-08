@@ -37,13 +37,16 @@ library(project3package)
 To demonstate the use of `my_t.test`, I will examine the mean age of life expectancy from the `my_gapminder` dataset. For all three trials, $H_{0} = 60$, and I will use `my_t.test` to determine the liklihood that the life expectancy is not 60 years, is less than 60 years, or is 
 
 ```{r, include=TRUE}
+# load gapminder data
 data("my_gapminder")
+# store life expectancy in life_expectancy variable
 life_expectancy <- my_gapminder$lifeExp
 ```
 
 ## two sided hypothesis test
 
 ```{r}
+# store my_t.test output for two sided test
 test_two.sided <- my_t.test(x = life_expectancy, alternative = "two.sided", mu = 60)
 test_two.sided
 ```
@@ -52,6 +55,7 @@ The p-value for the trial with $H_{a} \neq 60$ is `r test_two.sided[[4]]`, which
 
 ## one sided hypothesis test where the alternative hypothesis is mu < 60
 ```{r}
+# store output of my_t.test for one sided test 
 test_less <- my_t.test(x = life_expectancy, alternative = "less", mu = 60)
 test_less
 ```
@@ -59,6 +63,7 @@ test_less
 The p-value for the trial with $H_{a} < 60$ is `r test_less[[4]]`, which is less than $\alpha = 0.05$. This means that there is a `r test_less[[4]]` chance that you would get a value at least this extreme, assuming $H_{0} = 60$ is correct. Therefore, we can reject the the null hypothesis in favor of the alternative hypothesis, that the true mean life expectancy is less than 60. 
 
 ```{r}
+# store output of my_t.test for one sided test
 test_greater <- my_t.test(x = life_expectancy, alternative = "greater", mu = 60)
 test_greater
 ```
@@ -70,6 +75,7 @@ The p-value for the trial with $H_{a} > 60$ is `r test_greater[[4]]`, which is g
 To demonstate the use of `my_lm` I will create a regression using life expectancy as my response variable and GDP per capita and continent as my explanatory variables, with data from `my_gapminder`.
 
 ```{r}
+# store output of my_lm using gapminder data
 my_model <- my_lm(formula = lifeExp ~ gdpPercap + continent, data = my_gapminder)
 my_model
 ```
@@ -82,18 +88,25 @@ The following plot compared the actual vs. fitted values:
 ```{r, warning = FALSE}
 library(ggplot2)
 my_x <- model.matrix(my_gapminder$lifeExp ~ gdpPercap + continent, data = my_gapminder)
+# fitted model
 fitted <- my_x %*% as.matrix(my_model[, 1])
+# data frame with actual and fitted values
 my_df <- data.frame(actual = my_gapminder$lifeExp, fitted = fitted, continent = my_gapminder$continent)
 
+# plot actua vs. fitted
 ggplot(my_df, aes(x = actual, y = fitted, color = continent)) + 
   geom_point(size = 0.7) + 
   theme_bw(base_size = 12) + 
   labs(x = "Actual (years)", y = "Fitted (years)", title = "Actual vs. Fitted") + 
   theme(plot.title = element_text(hjust = 0.5)) + 
+  # adjust axis
   xlim(20, 90) + 
   ylim(20, 90)
 
 ```
+
+The fitted values have a much smaller range than the actual values. This indicates that the model fit is not very good because if the fit were good we would expect to see wider, diagonal lines rather than flat, narrow lines. 
+
 
 # my_knn_cv
 
@@ -109,37 +122,79 @@ my_train <- penguin %>% dplyr::select(bill_length_mm, bill_depth_mm, flipper_len
 # true species (class) of penguins
 my_cl <- penguin %>% dplyr::pull(species)
 
+# variable to store training error
 training_err <- matrix(NA, 10, 1)
-CV_missclassification <- matrix(NA, 10, 1)
+# variable to store missclassification error
+CV_misclassification <- matrix(NA, 10, 1)
 
 for(i in 1:10) {
 # predict species using 1 through 10 nearest neighbors and 5-fold cross-validation
 my_knn <- my_knn_cv(my_train, my_cl, i, 5)
+# add training error for each iteration
 training_err[i] <- length(which(penguin$species != my_knn[[1]])) / nrow(penguin)
-CV_missclassification[i] <- my_knn[[2]]
+# add missclassification error for each iteration
+CV_misclassification[i] <- my_knn[[2]]
 }
 
 training_err
-CV_missclassification
+CV_misclassification
 ```
+
+Based on the training missclassification rate, I would choose the model where we use 1 nearest neighbor, because the training error rate is `r training_err[1]`. Based on the CV misclassification rates, I would also choose the model with 1 nearest neighbor, because the error rate is the lowest. The CV misclassification error uses 5-fold cross validation to determine how well the estimations predict the true class. While the model decision is the same using both models, I would use the CV misclassification error to justify this deicison, becasue the training missclassification error for one nearest neighbor is always 0 since the first nearest neighbor is the data point itself. 
 
 # my_rf_cv
 
 To demonstate the use of my_rf_cv I will predict the body mass of penguins using bill length, bill dpeth, and flipper length as covariates. 
 
 ```{r}
-my_rf <- matrix(NA, 3, 30)
+# matrix to store random forest cross-validation output
+my_rf <- matrix(NA, 30, 3)
 
 for (i in c(2, 5, 10)) {
   for(j in 1:30) {
-       my_rf[1, j] <- my_rf_cv(i)
-       my_rf[2, j] <- my_rf_cv(i)
-       my_rf[3, j] <- my_rf_cv(i)
+    if (i == 2) {
+       my_rf[j, 1] <- my_rf_cv(i)
+    } else if (i == 5) {
+       my_rf[j, 2] <- my_rf_cv(i)
+    } else {
+       my_rf[j, 3] <- my_rf_cv(i)
+    }
   }
 }
+```
 
 
-my_rf
+```{r}
+library(reshape2)
+library(ggplot2)
+
+my_df <- data.frame(my_rf)
+colnames(my_df) <- c("k = 2", "k = 5", "k = 10")
+my_df <- melt(my_df, measure.vars = c("k = 2", "k = 5", "k = 10"))
+
+ggplot(data = my_df, aes(x = variable, y = value)) + 
+  geom_boxplot() + 
+  theme_bw(base_size = 12) + 
+  labs(x = "Number of Folds", y = "Average MSE")
 
 ```
 
+
+```{r}
+my_table <- matrix(NA, 3, 2)
+my_df2 <- data.frame(my_rf)
+
+my_means <- colMeans(my_df2)
+my_sd <- apply(my_df2, 2, sd)
+
+my_table[, 1] <- my_means
+my_table[, 2] <- my_sd
+
+colnames(my_table) <- c("Avg MSE", "SD")
+row.names(my_table) <- c("k = 2", "k = 5", "k = 10")
+
+my_table
+
+```
+
+As the number of folds increases, the average mean squared error of the predictions decreases and the standard deviation of the predictions decreases. This suggests that the 10-fold random forest cross validation model has the best predictive performance, as the average MSE and SD are lower than the 2- and 5- fold models. In general, as k increases there is a chance of overfitting becasue as k increases, more of the full data set is being used to make the predicitons and less is left to test the accuracy of the predictions. In this case, I belive that the 10-fold model leaves enough data left to accuratly assess the model and yields the best predictions compared to the other models. 
