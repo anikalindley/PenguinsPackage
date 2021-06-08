@@ -5,10 +5,12 @@
 #' @param x Numeric vector of data.
 #' @param alternative String that specifies the alternative hypothesis and accepts
 #'  "two.sided", "less", or "greater".
-#' @param mu Numeric value that specifices the null hypothesis value of the mean.
+#' @param mu Numeric value that specifices the null hypothesis.
+#'
+#' @keywords inference
 #'
 #' @return List that includes a numeric test statistic, the degrees of freedom,
-#'   the alternative hypothesis parameter, and the numeric p-value
+#'   the alternative hypothesis parameter, and the numeric p-value.
 #'
 #' @examples
 #' my_t.test(x = rnorm(50, 0, 1), alternative = "less", mu = 0.3)

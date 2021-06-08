@@ -13,7 +13,7 @@ my_lm(formula, data)
 }
 \value{
 Table that includes the estimates for the regression coefficients,
-the standard errors of the estimations, the t-value of the estimations, and
+the standard errors of the estimations, the t-values of the estimations, and
 the probability of observing a t-value at least as extreme as the one observed,
 if the null hypothesis is correct.
 }
@@ -24,3 +24,5 @@ This function fits a linear model to given data.
 my_lm(formula = mtcars$wt ~ mtcars$cyl + mtcars$mpg, data = mtcars)
 
 }
+\keyword{inference}
+\keyword{prediction}

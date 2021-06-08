@@ -7,8 +7,10 @@
 #' @param k_nn Integer indicating that the model will use \code{k_nn} nearest neighbors.
 #' @param k_cv Integer indicating that we will use \code{k_cv}-fold cross-validation.
 #'
-#' @return a list with elements class, a vector of the predicted class for each observation,
+#' @return a list with class, a vector of the predicted class for each observation,
 #'   and cv_err, a numeric with the cross-validation misclassification error.
+#'
+#' @keywords prediction
 #'
 #' @examples
 #' train <- na.omit(my_penguins)[, c(3:6)]

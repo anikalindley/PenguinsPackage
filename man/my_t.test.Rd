@@ -12,11 +12,11 @@ my_t.test(x, alternative, mu)
 \item{alternative}{String that specifies the alternative hypothesis and accepts
 "two.sided", "less", or "greater".}
 
-\item{mu}{Numeric value that specifices the null hypothesis value of the mean.}
+\item{mu}{Numeric value that specifices the null hypothesis.}
 }
 \value{
 List that includes a numeric test statistic, the degrees of freedom,
-the alternative hypothesis parameter, and the numeric p-value
+the alternative hypothesis parameter, and the numeric p-value.
 }
 \description{
 This function performs t-tests.
@@ -26,3 +26,4 @@ my_t.test(x = rnorm(50, 0, 1), alternative = "less", mu = 0.3)
 my_t.test(x = mtcars$wt, alternative = "greater", mu = 3)
 
 }
+\keyword{inference}

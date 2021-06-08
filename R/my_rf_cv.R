@@ -4,6 +4,8 @@
 #'
 #' @param k Numeric indicating that the function will use \code{k}-fold cross-validation.
 #'
+#' @keywords prediction
+#'
 #' @return Numeric with the cross-validation error.
 #'
 #' @examples

@@ -28,4 +28,5 @@ Imports:
     randomForest,
     ggplot2,
     tidyr,
-    reshape2
+    reshape2,
+    tibble

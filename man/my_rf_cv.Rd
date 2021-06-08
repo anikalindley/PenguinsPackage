@@ -21,3 +21,4 @@ This function performs cross validation on predictions made using random forest.
 my_rf_cv(5)
 
 }
+\keyword{prediction}

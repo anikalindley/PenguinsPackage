@@ -16,7 +16,7 @@ my_knn_cv(train, cl, k_nn, k_cv)
 \item{k_cv}{Integer indicating that we will use \code{k_cv}-fold cross-validation.}
 }
 \value{
-a list with elements class, a vector of the predicted class for each observation,
+a list with class, a vector of the predicted class for each observation,
 and cv_err, a numeric with the cross-validation misclassification error.
 }
 \description{
@@ -28,3 +28,4 @@ cl <- na.omit(my_penguins)[, 1]
 my_knn_cv(train, cl, 1, 5)
 
 }
+\keyword{prediction}
