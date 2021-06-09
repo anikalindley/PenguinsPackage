@@ -20,7 +20,8 @@ a list with class, a vector of the predicted class for each observation,
 and cv_err, a numeric with the cross-validation misclassification error.
 }
 \description{
-This function performs cross-validation on predictions made with k-nearest neighbors.
+This function uses cross validation to assess how predictions made using
+k-nearest neighbors models can generalize to independent data sets.
 }
 \examples{
 train <- na.omit(my_penguins)[, c(3:6)]

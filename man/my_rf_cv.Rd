@@ -3,7 +3,8 @@
 \name{my_rf_cv}
 \alias{my_rf_cv}
 \title{Random forest cross-validation
-This function performs cross validation on predictions made using random forest.}
+This function uses cross validation to assess how predictions made using
+random forest models can generalize to independent data sets.}
 \usage{
 my_rf_cv(k)
 }
@@ -15,7 +16,8 @@ Numeric with the cross-validation error.
 }
 \description{
 Random forest cross-validation
-This function performs cross validation on predictions made using random forest.
+This function uses cross validation to assess how predictions made using
+random forest models can generalize to independent data sets.
 }
 \examples{
 my_rf_cv(5)
